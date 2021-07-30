@@ -22,6 +22,9 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+      - 
+        name: set up QEMU
+        uses: docker/setup-qemu-action@v1
       
       -
         name: Set up Docker Buildx
@@ -34,10 +37,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        run: |
-             docker buildx build \
-             --platform linux/amd64, linux/arm64 \
-             --tag farazahmad372/python-helloworld:latest \
-             --output "type=image,push=true" \
-             --file Dockerfile .
+        uses: docker/build-push-activity@v2
+        with:
+          context: .
+          file: ./dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: farazahmad372/python-helloworld:v1.0.0
+          
+         
         
