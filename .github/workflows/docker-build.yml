@@ -40,7 +40,7 @@ jobs:
         uses: docker/build-push-activity@v2
         with:
           context: .
-          file: ./dockerfile
+          file: ./Dockerfile
           platforms: linux/amd64
           push: true
           tags: farazahmad372/python-helloworld:1.0.0
